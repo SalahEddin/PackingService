@@ -1,4 +1,4 @@
-namespace packwise_api.Models
+namespace PackingService.Models
 
 [<CLIMutable>]
 type Message =

@@ -1,11 +1,11 @@
-namespace packwise_api
+namespace PackingService
 
 module HttpHandlers =
 
     open Microsoft.AspNetCore.Http
     open FSharp.Control.Tasks.V2.ContextInsensitive
     open Giraffe
-    open packwise_api.Models
+    open PackingService.Models
 
     let handleGetHello =
         fun (next: HttpFunc) (ctx: HttpContext) ->

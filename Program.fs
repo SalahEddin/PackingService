@@ -1,4 +1,4 @@
-module packwise_api.App
+module PackingService.App
 
 open System
 open Microsoft.AspNetCore.Builder
@@ -7,7 +7,7 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open packwise_api.HttpHandlers
+open PackingService.HttpHandlers
 
 // ---------------------------------
 // Web app
