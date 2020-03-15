@@ -1,2 +1,2 @@
 # Run Tests
-dotnet watch --project PackagingService.Tests\PackagingServiceTests.fsproj test
+dotnet watch --project PackingService.Tests\PackingServiceTests.fsproj test

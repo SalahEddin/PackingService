@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PackagingService\PackingService.fsproj" />
+    <ProjectReference Include="..\PackingService\PackingService.fsproj" />
   </ItemGroup>
 
 </Project>

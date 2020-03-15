@@ -1,6 +1,8 @@
-module PackagingServiceTests
+module PackingServiceTests
 
+open System
 open NUnit.Framework
+open PackingService
 
 [<SetUp>]
 let Setup () =
