@@ -18,6 +18,14 @@ type SkyCondition = Sunny | Cloudy
 type RainCondition = Dry | Rain | Snow | Hail
 type WindCondition = Still | Wind | ExtremeWind
 
+type WeatherCondition = 
+    { SkyCondition: SkyCondition
+      RainCondition: RainCondition 
+      WindCondition: WindCondition
+      Temperature: int
+      IsTemperatureInCelsius: bool
+    }
+
 [<CLIMutable>]
 type Shelter =
     { ShelterName: string
