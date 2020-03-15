@@ -2,7 +2,7 @@ module PackingServiceTests
 
 open System
 open NUnit.Framework
-open PackingService.Filters
+open PackingService
 
 [<SetUp>]
 let Setup () =
@@ -14,6 +14,6 @@ let Test1 () =
 
 [<Test>]
 let TestEvenSequence() =
-    let expected = [1; 1; 1; 1]
-    let actual = MyMath.squaresOfOdds [2; 1; 4; 1; 6; 1; 8; 1; 10]
+    let expected = "Tent"
+    let actual = PackingHelper.filterShelter (PackingHelper.Cloudy, PackingHelper.Rain, PackingHelper.Still)
     Assert.That(actual, Is.EqualTo(expected))

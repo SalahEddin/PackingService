@@ -14,7 +14,7 @@ type DoubleMessage =
 type Messages =
     { Messages: DoubleMessage array }
 
-type SkyCondition = Sunny | Cloudy 
+type SkyCondition = Sunny | Cloudy
 type RainCondition = Dry | Rain | Snow | Hail
 type WindCondition = Still | Wind | ExtremeWind
 
