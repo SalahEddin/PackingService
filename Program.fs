@@ -19,6 +19,7 @@ let webApp =
             (choose [
                 GET >=> choose [
                     route "/hello" >=> handleGetHello
+                    route "/shelter" >=> handleGetShelters
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
