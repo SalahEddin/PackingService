@@ -14,12 +14,17 @@ type DoubleMessage =
 type Messages =
     { Messages: DoubleMessage array }
 
+type SkyCondition = Sunny | Cloudy 
+type RainCondition = Dry | Rain | Snow | Hail
+type WindCondition = Still | Wind | ExtremeWind
+
 [<CLIMutable>]
 type Shelter =
     { ShelterName: string
       Aliases: string array
-      AppropriateCondition: string array array }
+      AppropriateCondition: SkyCondition * RainCondition * WindCondition }
 
 [<CLIMutable>]
 type Shelters =
     { Shelters: Shelter array }
+

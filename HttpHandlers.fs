@@ -18,9 +18,10 @@ module HttpHandlers =
     let handleGetShelters =
         fun (next: HttpFunc) (ctx: HttpContext) ->
             task {
+                let cond : SkyCondition * RainCondition * WindCondition = (Sunny, Dry, Still)
                 let response =
-                    [| { ShelterName = "Hello world, from Giraffe!"
-                         AppropriateCondition = [| [| "sunny" |] |]
+                    [| { ShelterName = "Hello worldz, from Giraffe!"
+                         AppropriateCondition = cond
                          Aliases = [| "WOW" |] } |]
                 return! json response next ctx
             }
