@@ -9,7 +9,6 @@
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
     <None Include="web.config" />
-    <Compile Include="PackingService/PackingService.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Giraffe" Version="3.4.*" />
