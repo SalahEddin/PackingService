@@ -14,6 +14,6 @@ let Test1 () =
 
 [<Test>]
 let TestEvenSequence() =
-    let expected = "Tent"
-    let actual = PackingHelper.filterShelter (PackingHelper.Cloudy, PackingHelper.Rain, PackingHelper.Still)
+    let expected = PackingHelper.Tent
+    let actual = PackingHelper.filterShelter (PackingHelper.Cloudy, PackingHelper.Rain, PackingHelper.Still, PackingHelper.Warm)
     Assert.That(actual, Is.EqualTo(expected))
