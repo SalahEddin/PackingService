@@ -8,6 +8,7 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open PackingService.HttpHandlers
+open PackingService.Models
 
 // ---------------------------------
 // Web app
@@ -20,6 +21,9 @@ let webApp =
                 GET >=> choose [
                     route "/hello" >=> handleGetHello
                     route "/shelter" >=> handleGetShelters
+                ]
+                POST >=> choose [
+                    routeBind<WeatherCondition> "/shelter" handleConditions
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
