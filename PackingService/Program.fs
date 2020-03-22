@@ -27,6 +27,7 @@ let webApp =
                 POST >=> choose [
                     route "/shelter" >=> handleShelter
                     route "/clothing" >=> handleClothing
+                    route "/shelter/recommendation" >=> handleShelterRecommendation
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
