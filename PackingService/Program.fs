@@ -6,6 +6,7 @@ open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
+open Microsoft.Extensions.Hosting
 open Giraffe
 open Giraffe.Serialization.Json
 open Newtonsoft.Json
@@ -49,7 +50,7 @@ let configureCors (builder : CorsPolicyBuilder) =
            |> ignore
 
 let configureApp (app : IApplicationBuilder) =
-    let env = app.ApplicationServices.GetService<IHostingEnvironment>()
+    let env = app.ApplicationServices.GetService<IWebHostEnvironment>()
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
