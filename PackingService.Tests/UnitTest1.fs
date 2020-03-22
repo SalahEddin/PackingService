@@ -3,6 +3,7 @@ module PackingServiceTests
 open System
 open NUnit.Framework
 open PackingService
+open PackingService.Models
 
 [<SetUp>]
 let Setup () =
@@ -14,6 +15,6 @@ let Test1 () =
 
 [<Test>]
 let TestEvenSequence() =
-    let expected = PackingHelper.Tent
-    let actual = PackingHelper.filterShelter (PackingHelper.Cloudy, PackingHelper.Rain, PackingHelper.Still, PackingHelper.Warm)
+    let expected = Tent
+    let actual = PackingHelper.filterShelter (Cloudy, Rain, Still, Warm)
     Assert.That(actual, Is.EqualTo(expected))
