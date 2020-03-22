@@ -26,7 +26,3 @@ module PackingHelper =
     let filterJacket conditions = RainJacket
     let filterSocks conditions = Wool
     
-    //let squaresOfOdds xs =
-    //    xs
-    //    |> Seq.filter isOdd
-    //    |> Seq.map square

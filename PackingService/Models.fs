@@ -93,11 +93,12 @@ type ShelterType =
     { Shelter: Shelter }
 
 [<CLIMutable>]
-type ShelterOption =
-    { ShelterName: string
-      Aliases: string array
-      AppropriateCondition: SkyCondition * RainCondition * WindCondition * HeatLevel }
-
-[<CLIMutable>]
-type Shelters =
-    { Shelters: Shelter array }
+type Clothes =
+    { Headwear: Headwear
+      Pants: Pants
+      Outwear: Outwear
+      BaseLayerPants: BaseLayerPants
+      Handwear: Handwear
+      EyeWear: EyeWear
+      Jacket: Jacket
+      Socks: Socks }
