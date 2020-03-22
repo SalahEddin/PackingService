@@ -1,4 +1,4 @@
-module packwise_api.App
+module PackingService.App
 
 open System
 open Microsoft.AspNetCore.Builder
@@ -6,8 +6,12 @@ open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
+open Microsoft.Extensions.Hosting
 open Giraffe
-open packwise_api.HttpHandlers
+open Giraffe.Serialization.Json
+open Newtonsoft.Json
+open Microsoft.FSharpLu.Json
+open PackingService.HttpHandlers
 
 // ---------------------------------
 // Web app
@@ -19,6 +23,11 @@ let webApp =
             (choose [
                 GET >=> choose [
                     route "/hello" >=> handleGetHello
+                ]
+                POST >=> choose [
+                    route "/shelter" >=> handleShelter
+                    route "/clothing" >=> handleClothing
+                    route "/shelter/recommendation" >=> handleShelterRecommendation
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
@@ -42,7 +51,7 @@ let configureCors (builder : CorsPolicyBuilder) =
            |> ignore
 
 let configureApp (app : IApplicationBuilder) =
-    let env = app.ApplicationServices.GetService<IHostingEnvironment>()
+    let env = app.ApplicationServices.GetService<IWebHostEnvironment>()
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
@@ -51,8 +60,15 @@ let configureApp (app : IApplicationBuilder) =
         .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
+    // Now customize only the IJsonSerializer by providing a custom
+    // object of JsonSerializerSettings
+    let customSettings = JsonSerializerSettings()
+    customSettings.Converters.Add(CompactUnionJsonConverter(true))
+
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
+    services.AddSingleton<IJsonSerializer>(
+        NewtonsoftJsonSerializer(customSettings)) |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
     builder.AddFilter(fun l -> l.Equals LogLevel.Error)
@@ -62,7 +78,8 @@ let configureLogging (builder : ILoggingBuilder) =
 [<EntryPoint>]
 let main _ =
     WebHostBuilder()
-        .UseKestrel()
+        // required for Newsoft.JSON
+        .UseKestrel(fun option -> option.AllowSynchronousIO <- true)
         .UseIISIntegration()
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)
