@@ -7,8 +7,11 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
+open Giraffe.Serialization.Json
+open Newtonsoft.Json
+open Newtonsoft.Json.Serialization
+open Microsoft.FSharpLu.Json
 open PackingService.HttpHandlers
-open PackingService.Models
 
 // ---------------------------------
 // Web app
@@ -20,11 +23,9 @@ let webApp =
             (choose [
                 GET >=> choose [
                     route "/hello" >=> handleGetHello
-                    route "/shelter" >=> handleGetShelters
                 ]
                 POST >=> choose [
-                    route "/shelterz" >=> handleConditions
-                    route "/car" >=> submitCar
+                    route "/shelter" >=> handleConditions
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
@@ -57,8 +58,15 @@ let configureApp (app : IApplicationBuilder) =
         .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
+    // Now customize only the IJsonSerializer by providing a custom
+    // object of JsonSerializerSettings
+    let customSettings = JsonSerializerSettings()
+    customSettings.Converters.Add(CompactUnionJsonConverter(true))
+
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
+    services.AddSingleton<IJsonSerializer>(
+        NewtonsoftJsonSerializer(customSettings)) |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
     builder.AddFilter(fun l -> l.Equals LogLevel.Error)
@@ -68,6 +76,7 @@ let configureLogging (builder : ILoggingBuilder) =
 [<EntryPoint>]
 let main _ =
     WebHostBuilder()
+        // required for Newsoft.JSON
         .UseKestrel(fun option -> option.AllowSynchronousIO <- true)
         .UseIISIntegration()
         .Configure(Action<IApplicationBuilder> configureApp)
