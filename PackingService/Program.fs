@@ -9,7 +9,6 @@ open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Giraffe.Serialization.Json
 open Newtonsoft.Json
-open Newtonsoft.Json.Serialization
 open Microsoft.FSharpLu.Json
 open PackingService.HttpHandlers
 
