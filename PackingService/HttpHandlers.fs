@@ -24,12 +24,22 @@ module HttpHandlers =
                 return! json response next ctx
             }
 
-    let handleConditions (conditions: WeatherCondition) =
+    let handleConditions =
         fun (next: HttpFunc) (ctx: HttpContext) ->
             task {
-                let cond : SkyCondition * RainCondition * WindCondition * HeatLevel = 
-                    (conditions.SkyCondition, conditions.RainCondition, conditions.WindCondition, conditions.HeatLevel)
-                let response =
-                    [| { Shelter = PackingHelper.filterShelter cond } |]
-                return! json response next ctx
+                // Binds a JSON payload to a Car object
+                let! cond = ctx.BindJsonAsync<WeatherCondition>()
+
+                // Sends the object back to the client
+                return! Successful.OK cond next ctx
+            }
+
+    let submitCar : HttpHandler =
+        fun (next : HttpFunc) (ctx : HttpContext) ->
+            task {
+                // Binds a JSON payload to a Car object
+                let! car = ctx.BindJsonAsync<Car>()
+
+                // Sends the object back to the client
+                return! Successful.OK car next ctx
             }

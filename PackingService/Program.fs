@@ -23,7 +23,8 @@ let webApp =
                     route "/shelter" >=> handleGetShelters
                 ]
                 POST >=> choose [
-                    routeBind<WeatherCondition> "/shelter" handleConditions
+                    route "/shelterz" >=> handleConditions
+                    route "/car" >=> submitCar
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
@@ -67,7 +68,7 @@ let configureLogging (builder : ILoggingBuilder) =
 [<EntryPoint>]
 let main _ =
     WebHostBuilder()
-        .UseKestrel()
+        .UseKestrel(fun option -> option.AllowSynchronousIO <- true)
         .UseIISIntegration()
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)

@@ -31,6 +31,7 @@ type Socks = Regular | Wool
 
 type Activity = Climbing | Hiking
 
+[<CLIMutable>]
 type WeatherCondition = 
     { SkyCondition: SkyCondition
       RainCondition: RainCondition 
@@ -51,3 +52,10 @@ type ShelterOption =
 type Shelters =
     { Shelters: Shelter array }
 
+[<CLIMutable>]
+type Car =
+    {
+        Name   : string
+        Make   : string
+        Wheels : int
+    }
