@@ -1,6 +1,6 @@
 namespace PackingService
 
-module PackingHelper =
+module ConditionsHelper =
     open PackingService.Models
    
     let filterShelter conditions = 
